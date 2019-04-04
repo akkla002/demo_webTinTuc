@@ -1,0 +1,98 @@
+{% extends "pages/base.html" %}
+{% load staticfiles %}
+{% block title %} LoaiTin {% endblock %}
+{% block  content %}
+    <!-- Page Content -->
+    <div class="container">
+            <div class="row">
+                <div class="col-md-3 ">
+                    <ul class="list-group" id="menu">
+                        <li href="#" class="list-group-item menu1 active">
+                            Menu
+                        </li>
+                        {% for tl in theloai %}
+                        <li href="{% static tl.TenKhongDau %}" class="list-group-item menu1">
+                            {{tl.Ten}}
+                        </li>
+                            
+                        {% if tl.loaitin_set.all %}
+                            <ul>
+                                {% for eachLT in tl.loaitin_set.all %}
+                                <li class="list-group-item">
+                                    <a href="/loaitin/{{eachLT.idLoaiTin}}">{{eachLT.Ten}}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}          
+                        {% endfor %}
+                    </ul>    
+                </div>
+    
+                <div class="col-md-9 ">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color:#337AB7; color:white;">
+                            <h4><b>{{LoaiTinTen.Ten}}</b></h4>
+                        </div>   
+                        {% for eachNew in Top5New %}                        
+                        <div class="row-item row">
+                                <h3>
+                                    <a href="#">{{eachLT.idLoaiTin}}</a>
+                                </h3>
+                                <div class="col-md-12 border-right">
+                                    <div class="col-md-3">
+                                        <a href="/chitiet/{{eachNew.idTin}}">
+                                            <img class="img-responsive" src="{% static eachNew.Hinh %}" alt="">
+                                        </a>
+                                    </div>
+            
+                                    <div class="col-md-9">
+                                        <h3>{{eachNew.TieuDe}}</h3>
+                                        <p>{{eachNew.TomTat}}</p>
+                                        <a class="btn btn-primary" href="/chitiet/{{eachNew.idTin}}">Xem tin <span class="glyphicon glyphicon-chevron-right"></span></a>
+                                    </div>
+            
+                                </div>
+                                <div class="break"></div>
+                            </div>
+                        {% endfor %}
+                            <div class="break"></div>
+                        </div>
+    
+                        <!-- Pagination -->
+                        <div class="row text-center">
+                            <div class="col-lg-12">
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#">&laquo;</a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="#">1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">3</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">4</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">5</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">&raquo;</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+    
+                    </div>
+                </div> 
+    
+            </div>
+    
+        </div>
+        <!-- end Page Content -->
+{% endblock  %}

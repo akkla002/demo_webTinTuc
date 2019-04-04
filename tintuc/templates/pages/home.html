@@ -1,0 +1,132 @@
+{% extends "pages/base.html" %}
+{% load staticfiles %}
+{% block title %} Home {% endblock %}
+{% block  content %}
+<!-- Page Content -->
+<div class="container">
+    
+        <!-- slider -->
+        <div class="row carousel-holder">
+            <div class="col-md-12">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        {% for slidePic, count in Slide %}
+                            {% if count == 0 %}
+                                <div class="item active">
+                            {% else %}
+                                <div class="item">
+                            {% endif %}
+                                <img class="slide-image" src="{% static slidePic.Hinh %}" alt="">
+                                </div>
+                        {% endfor %}
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- end slide -->
+
+        <div class="space20"></div>
+        <div class="row main-left">
+            <div class="col-md-3 ">
+                <ul class="list-group" id="menu">
+                    <li href="#" class="list-group-item menu1 active">
+                        Menu
+                    </li>
+                    {% for tl in theloai %}
+                    <li href="{% static tl.TenKhongDau %}" class="list-group-item menu1">
+                        {{tl.Ten}}
+                    </li>
+                        
+                    {% if tl.loaitin_set.all %}
+                        <ul>
+                            {% for eachLT in tl.loaitin_set.all %}
+                            <li class="list-group-item">
+                                <a href="/loaitin/{{eachLT.idLoaiTin}}">{{eachLT.Ten}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}          
+                    {% endfor %}
+                </ul>            
+            </div>  
+<div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color:#337AB7; color:white;" >
+                <h2 style="margin-top:0px; margin-bottom:0px;"> Tin Tức</h2>
+            </div>
+
+            <div class="panel-body">
+                <!-- item -->
+                
+                {% for eachNew, eachLT in Top5New %}
+                    
+                <div class="row-item row">
+                        <h3>
+                            <a href="#">{{eachLT.Ten}}</a>
+                        </h3>
+                        <div class="col-md-12 border-right">
+                            <div class="col-md-3">
+                                <a href="chitiet/{{eachNew.idTin}}">
+                                    <img class="img-responsive" src="{% static eachNew.Hinh %}" alt="">
+                                </a>
+                            </div>
+    
+                            <div class="col-md-9">
+                                <h3>{{eachNew.TieuDe}}</h3>
+                                <p>{{eachNew.TomTat}}</p>
+                                <a class="btn btn-primary" href="chitiet/{{eachNew.idTin}}">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            </div>
+    
+                        </div>
+                        <div class="break"></div>
+                    </div>
+                {% endfor %}
+                <!-- end item -->
+                <!-- item -->
+                <!-- end item -->
+                <!-- item -->
+                <!-- end item -->
+                <!-- item -->
+                <!-- <div class="row-item row">
+                    <h3>
+                        <a href="#">Category</a> |
+                        <small><a href="loaitin/"><i>subtitle</i></a>/</small>
+                        <small><a href="loaitin/"><i>subtitle</i></a>/</small>
+                        <small><a href="loaitin/"><i>subtitle</i></a>/</small>
+                        <small><a href="loaitin/"><i>subtitle</i></a>/</small>
+                        <small><a href="loaitin/"><i>subtitle</i></a>/</small>
+                    </h3>
+                    <div class="col-md-12 border-right">
+                        <div class="col-md-3">
+                            <a href="chitiet/">
+                                <img class="img-responsive" src="{% static 'images/320x150.png' %}" alt="">
+                            </a>
+                        </div>
+
+                        <div class="col-md-9">
+                            <h3>Project Five</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, quo, minima, inventore voluptatum saepe quos nostrum provident .</p>
+                            <a class="btn btn-primary" href="chitiet/">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
+                        </div>
+
+                    </div>
+
+                    <div class="break"></div>
+                </div> -->
+         
+
+            </div>
+        </div>
+    </div>
+{% endblock  %}
