@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/GioiThieu/">Giới thiệu</a>
+                            <a href="{% url 'GioiThieu' %}">Giới thiệu</a>
                         </li>
                     </ul>   
                     <form class="navbar-form navbar-left" role="search">
@@ -47,14 +47,14 @@
                             <a href="#">{{request.session.userName}}</a>
                         </li>
                         <li>
-                            <a href="/logout/">Đăng xuất</a>
+                            <a href="{% url 'dangxuat' %}">Đăng xuất</a>
                         </li>
                         {% else %}
                         <li>
-                            <a href="/dangky/">Đăng ký</a>
+                            <a href="{% url 'dangky' %}">Đăng ký</a>
                         </li>
                         <li>
-                            <a href="/dangnhap/">Đăng nhập</a>
+                            <a href="{% url 'dangnhap' %}">Đăng nhập</a>
                         </li>
                         {% endif %}
                              

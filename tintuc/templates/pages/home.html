@@ -52,7 +52,7 @@
                         <ul>
                             {% for eachLT in tl.loaitin_set.all %}
                             <li class="list-group-item">
-                                <a href="/loaitin/{{eachLT.idLoaiTin}}">{{eachLT.Ten}}</a>
+                                <a href="{% url 'loaitin' eachLT.idLoaiTin %}">{{eachLT.Ten}}</a>
                             </li>
                             {% endfor %}
                         </ul>
@@ -77,7 +77,7 @@
                         </h3>
                         <div class="col-md-12 border-right">
                             <div class="col-md-3">
-                                <a href="chitiet/{{eachNew.idTin}}">
+                                <a href="{% url 'chitiet' eachNew.idTin %}">
                                     <img class="img-responsive" src="{% static eachNew.Hinh %}" alt="">
                                 </a>
                             </div>
@@ -85,7 +85,7 @@
                             <div class="col-md-9">
                                 <h3>{{eachNew.TieuDe}}</h3>
                                 <p>{{eachNew.TomTat}}</p>
-                                <a class="btn btn-primary" href="chitiet/{{eachNew.idTin}}">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
+                                <a class="btn btn-primary" href="{% url 'chitiet' eachNew.idTin %}">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
                             </div>
     
                         </div>

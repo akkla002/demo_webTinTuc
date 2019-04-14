@@ -1,5 +1,7 @@
 from tintuc.models import *
 
+
+numberOfRowToGet = 5
 def loadMenuSide():
     return theloai.objects.all()
 def loadTopSlide():
@@ -9,7 +11,6 @@ def loadTopSlide():
         sl.Hinh=folder+sl.Hinh
     return arrSide
 def loadTopNews(page=None):
-    numberOfRowToGet = 5
     theFolder = 'images/tintuc/'
     fromPage = 0
     if page == None:
@@ -26,7 +27,6 @@ def loadTopNews(page=None):
     return zip(topNews,arrLT)
 def loadNewOfTLWithPage(idTL,page = None):  
     theFolder = 'images/tintuc/'
-    numberOfRowToGet = 5
     if page == None:
         page = 1
     else:
@@ -57,4 +57,6 @@ def login(userName, passWord):
     id = user.idUser
     theUser = {'name': name, 'idUser': id}
     return theUser
+def getMaxpageOfLoaiTin(idLoaiTin):
+    return loaitin.objects.all().count() / numberOfRowToGet + 1
 

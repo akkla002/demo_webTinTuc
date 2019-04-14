@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .MyStaticFunction import *
+from .pagination import *
 
 # Create your views here.
+thePagination = pagination(0)
 def LoadPage_index(request):
     if 'userName' not in request.session:
         request.session['userName'] = 'NULL'
@@ -14,11 +16,19 @@ def LoadPage_GioiThieu(request):
     topFiveNews = Tin.objects.all()
     Data = {'theloai': loadMenuSide(),'TinTuc': topFiveNews}
     return render(request,'pages/GioiThieu.html',Data)
-def LoadPage_loaitin(request,id):   
-    topFiveNews = loadNewOfTLWithPage(id,3)
+def LoadPage_loaitin(request, id, page = 1):
+    topFiveNews = loadNewOfTLWithPage(id,page=page)
+    if thePagination.theId != id:
+        thePagination.setId(id)
     loaiTinTen = loaitin.objects.get(idLoaiTin=id)
-    Data = {'theloai': loadMenuSide(),'Top5New': topFiveNews,'LoaiTinTen': loaiTinTen}
+    thePagination.nowPage = page
+    Data = {'theloai': loadMenuSide(),'Top5New': topFiveNews,'LoaiTinTen': loaiTinTen, 'idLoaiTin': id,
+    'nowPage':thePagination.nowPage,'maxPage': thePagination.maxPage,'theRangePages':thePagination.getRangePage()}
     return render(request,'pages/loaitin.html',Data)
+
+
+
+
 def LoadPage_chitiet(request, idTinTuc):
     Data = loadInfoOfChiTiet(idTinTuc)
     return render(request,'pages/chitiet.html',Data)

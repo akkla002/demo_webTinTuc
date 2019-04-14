@@ -85,12 +85,12 @@
                             {% for news in relatedNews %}
                             <div class="row" style="margin-top: 10px;">
                                 <div class="col-md-5">
-                                    <a href="/chitiet/{{news.idTin}}">
+                                    <a href=" {% url 'chitiet' news.idTin %}">
                                         <img class="img-responsive" src="{% static news.Hinh %}" alt="">
                                     </a>
                                 </div>
                                 <div class="col-md-7">
-                                    <a href="/chitiet/{{news.idTin}}"><b>{{news.TieuDe}}</b></a>
+                                    <a href="{% url 'chitiet' news.idTin %}"><b>{{news.TieuDe}}</b></a>
                                 </div>
                                 <p>{{news.TomTat}}</p>
                                 <div class="break"></div>
