@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .MyStaticFunction import *
 from .pagination import *
+from .user import *
 
 # Create your views here.
 thePagination = pagination(0)
@@ -32,10 +33,22 @@ def LoadPage_loaitin(request, id, page = 1):
 def LoadPage_chitiet(request, idTinTuc):
     Data = loadInfoOfChiTiet(idTinTuc)
     return render(request,'pages/chitiet.html',Data)
+
+
+
 def LoadPage_dangky(request):
-    if request.method == "POST":
-        return render(request,'pages/dangky.html')
-    return render(request,'pages/dangky.html')
+    if request.method=='POST':
+        form=RegistrationFrom(request.POST)
+        if form.is_valid():
+            name=request.POST.get('name','')
+            email=request.POST.get('email','')
+            password=request.POST.get('password1','')
+            user_obj=users(name=name,email=email,password=password)
+            user_obj.save()
+            return HttpResponseRedirect('/')
+    else:
+        form=RegistrationFrom()
+    return render(request,'pages/dangky.html',{'form': form})
 
 
 def LoadPage_dangnhap(request):
