@@ -4,6 +4,7 @@
 {% block  content %}
     <!-- Page Content -->
     <div class="container">
+<<<<<<< HEAD
     	<!-- slider -->
     	<div class="row carousel-holder">
             <div class="col-md-2">
@@ -38,12 +39,28 @@
 
 				    	</form>
 				  	</div>
+=======
+		<!-- slider -->
+		<div class="row carousel-holder">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">Đăng ký tài khoản</div>
+					<div class="panel-body">
+						<form action="." method="POST">
+							{%csrf_token%}
+							{{form.as_p}}
+							<input type="submit" value="Đăng ký"/>
+						</form>
+					</div>
+>>>>>>> cfb7e0cad8314dd62f76cc0e1e3fd60327f97eca
 				</div>
-            </div>
-            <div class="col-md-2">
-            </div>
-        </div>
-        <!-- end slide -->
-    </div>
+			</div>
+			<div class="col-md-2">
+			</div>
+		</div>
+		<!-- end slide -->
+	</div>
     <!-- end Page Content -->
 {% endblock  %}  
