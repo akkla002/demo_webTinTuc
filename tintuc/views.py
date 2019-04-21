@@ -47,14 +47,22 @@ def LoadPage_chitiet(request, idTinTuc):
 
 
 def LoadPage_dangky(request):
+    error = 'None'
+    finish = 0
     if request.method=='POST':
-            name=request.POST.get('name','')
-            email=request.POST.get('email','')
-            password=request.POST.get('password1','')
-            user_obj=users(name=name,email=email,password=password)
-            user_obj.save()
-            return HttpResponseRedirect('/')
-    return render(request,'pages/dangky.html')
+        if 'email' not in request.POST or 'name' not in request.POST or 'password' not in request.POST:
+            error = 'Faile'
+        else:
+            email=request.POST['email']
+            if users.checkAvailableEmail(email) != None:
+                error = "Tồn tại email này!"
+            else:
+                name=request.POST['name']
+                password=request.POST['password']
+                createAccount(email,name,password)
+                finish = 1
+    data = {'error': error,'success': finish}
+    return render(request,'pages/dangky.html', data)
 
 
 def LoadPage_dangnhap(request):
@@ -67,11 +75,12 @@ def LoadPage_dangnhap(request):
             passWord = request.POST['passWord']     
             
         theUser = checkLogin(email,passWord)
-        if theUser != None:
+        if theUser == None:
+            error = "Wrong email or password, please try again!"
+        else:
             request.session['userName'] = theUser['name']
             request.session['idUser'] = theUser['idUser']
             return LoadPage_index(request)
-        error = "Wrong email or password, please try again!"
     Data = {'error': error}
     return render(request,'pages/dangnhap.html',Data)
 def LoadPage_taikhoan(request):

@@ -10,6 +10,11 @@
 		</div>
 		<div class="col-md-8">
 			<div class="panel panel-default">
+					
+					{% if success == 1 %}
+					<label style="color:green">Đăng ký thành công</label>
+					{% endif %}
+						
 				  <div class="panel-heading">Đăng ký tài khoản</div>
 				  <div class="panel-body">
 					<form action="." name="myForm" method="POST">
@@ -23,7 +28,13 @@
 						<div>
 							<label>Email</label>
 							  <input type="email" class="form-control" placeholder="Email" name="email" aria-describedby="basic-addon1">
-							  <span style="color:red" id="validateEmail"></span>
+								<span style="color:red" id="validateEmail"></span>
+								
+								{% if error != 'None' %}
+									
+									<span style="color:red" id="">{{error}}</span>
+								{% endif %}
+									
 						</div>
 						<br>	
 						<div>
@@ -42,6 +53,37 @@
 
 					</form>
 				 <!-- end slide -->
-        </div>
-        <!-- end Page Content -->
+				</div>
+				<!-- Begin script using in this page -->
+				<script type="text/javascript">
+					function validateForm() {
+							var name = document.forms["myForm"]["name"].value;
+							if (name == "") {
+									document.getElementById("validateName").innerHTML = "Tên không được để trống";
+									return;
+							}
+	
+							var email = document.forms["myForm"]["email"].value;
+							var email_regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+							if (!email_regex.test(email)) {
+									document.getElementById("validateEmail").innerHTML = "Email không đúng định dạng";
+									return;
+							}
+	
+	
+							var password = document.forms["myForm"]["password"].value;
+							var passwordAgain = document.forms["myForm"]["passwordAgain"].value;
+							if (password != passwordAgain || password=="" || passwordAgain==""){
+									document.getElementById("validatePassword").innerHTML = "Nhập lại mật khẩu ko đúng, vui lòng nhập lại!";
+									document.forms["myForm"]["password"].value = "";
+									document.forms["myForm"]["passwordAgain"].value = "";
+									return passwordAgain
+							}
+							var x = document.getElementsByName("myForm");
+							x[0].submit();
+	
+					}
+			</script>
+			<!-- end script using -->
+      <!-- end Page Content -->
 {% endblock  %}  

@@ -11,7 +11,7 @@
                     <div class="panel panel-default">
                           <div class="panel-heading">Đăng nhập</div>
                           <div class="panel-body">
-                            <form method="POST">
+                            <form name="formLogin" method="POST">
                                 {% csrf_token %}
                                 {% if error != 'None' %}
                                     
@@ -19,20 +19,36 @@
                                 {% endif %}
                                 <div>
                                     <label>Email</label>
-                                    
-                                        
                                       <input type="email" class="form-control" placeholder="Email" name="email">
+                                      <span style="color:red" id="validateEmail"></span>
                                 </div>
                                 <br>	
                                 <div>
                                     <label>Mật khẩu</label>
-                                      <input type="password" class="form-control" name="passWord">
+                                      <input type="password" class="form-control" name="passWord" id="pwd">
+                                      <span style="color:red" id="validatePassword"></span>
                                 </div>
                                 
                                 <br>
-                                <button type="submit" class="btn btn-success">Đăng nhập
-                                </button>
+                                <button type="button" onclick="checkValueInForm()" class="btn btn-success">Đăng nhập</button>
                             </form>
+                            <script>
+                                function checkValueInForm(){
+                                    var mail = document.forms["formLogin"]["email"].value;
+                                    if(mail == ""){
+                                        document.getElementById("validateEmail").innerHTML = "Email không được để trống";
+                                        return;
+                                    }
+
+                                    var pwd = document.forms["formLogin"]["passWord"].value;
+                                    if(pwd == ""){
+                                        document.getElementById("validatePassword").innerHTML = "Mật khẩu không được để trống";
+                                        return;
+                                    }
+                                    var x = document.getElementsByName("formLogin");
+							        x[0].submit();
+                                }
+                            </script>
                           </div>
                     </div>
                 </div>

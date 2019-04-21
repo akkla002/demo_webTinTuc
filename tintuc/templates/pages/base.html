@@ -13,32 +13,6 @@
 
     <title> {% block title %}{% endblock title %}</title>
 
-    <script type="text/javascript">
-        function validateForm() {
-            var name = document.forms["myForm"]["name"].value;
-            if (name == "") {
-                document.getElementById("validateName").innerHTML = "Tên không được để trống";
-                return;
-            }
-
-
-            var email = document.forms["myForm"]["email"].value;
-            var email_regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-            if (!email_regex.test(email)) {
-                document.getElementById("validateEmail").innerHTML = "Email không đúng định dạng";
-                return;
-            }
-
-
-            var password1 = document.forms["myForm"]["password"].value;
-            var passwordAgain = document.forms["myForm"]["passwordAgain"].value;
-            if (password1 != passwordAgain || password1=="" || passwordAgain==""){
-                document.getElementById("validatePassword").innerHTML = "Mật khẩu không hợp lệ";
-                return passwordAgain
-            }
-
-        }
-    </script>
 
 </head>
 <body>

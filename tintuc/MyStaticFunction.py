@@ -79,3 +79,13 @@ def addNewComment(idUser, idTin, commentContent):
     cm.NoiDung = commentContent
     cm.Created_at = datetime.datetime.now()
     cm.save()
+def createAccount(email,name,passWord):
+    if users.checkAvailableEmail(email) != None:
+        return False
+    newUser = users()
+    newUser.email = email
+    newUser.name = name
+    newUser.password = passWord
+    newUser.Created_at = datetime.datetime.now()
+    newUser.save()
+    return True

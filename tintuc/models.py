@@ -89,16 +89,21 @@ class users(models.Model):
     Update_at=models.DateTimeField(null=True, blank=True)
 
     @staticmethod
-    def login(userName, pwd):
-        try:
-            ur = users.objects.get(email = userName)
-        except:
-            ur = None
+    def login(email, pwd):
+        ur = users.checkAvailableEmail(email)
+        if ur == None:
             return None
         passWord = ur.password
         if(pwd == passWord):
             return ur
         return None
+    @staticmethod
+    def checkAvailableEmail(theEmail):
+        ur = users.objects.filter(email = theEmail)
+        if ur.count() > 0:
+            return ur[0]
+        return None
+
         
         
 
