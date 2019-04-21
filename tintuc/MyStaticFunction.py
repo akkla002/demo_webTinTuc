@@ -57,6 +57,7 @@ def login(userName, passWord):
     id = user.idUser
     theUser = {'name': name, 'idUser': id}
     return theUser
+    
 def getMaxpageOfLoaiTin(idLoaiTin):
     return loaitin.objects.all().count() / numberOfRowToGet + 1
 

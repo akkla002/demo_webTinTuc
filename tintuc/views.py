@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .MyStaticFunction import *
 from .pagination import *
-from .user import *
 
 # Create your views here.
 thePagination = pagination(0)
@@ -13,10 +12,14 @@ def LoadPage_index(request):
     theSlide = loadTopSlide()
     Data = {'theloai': loadMenuSide(),'Slide': zip(theSlide,range(len(theSlide))),'Top5New':topFiveNews}
     return render(request,'pages/home.html',Data)
+
+    
 def LoadPage_GioiThieu(request):
     topFiveNews = Tin.objects.all()
     Data = {'theloai': loadMenuSide(),'TinTuc': topFiveNews}
     return render(request,'pages/GioiThieu.html',Data)
+
+
 def LoadPage_loaitin(request, id, page = 1):
     topFiveNews = loadNewOfTLWithPage(id,page=page)
     if thePagination.theId != id:
@@ -38,17 +41,16 @@ def LoadPage_chitiet(request, idTinTuc):
 
 def LoadPage_dangky(request):
     if request.method=='POST':
-        form=RegistrationFrom(request.POST)
-        if form.is_valid():
-            name=request.POST.get('name','')
-            email=request.POST.get('email','')
-            password=request.POST.get('password1','')
-            user_obj=users(name=name,email=email,password=password)
-            user_obj.save()
-            return HttpResponseRedirect('/')
-    else:
-        form=RegistrationFrom()
-    return render(request,'pages/dangky.html',{'form': form})
+        if 'name' in request.POST:
+            name=request.POST.get('name')
+        if 'email' in request.POST:
+            email=request.POST.get('email')
+        if 'password' in request.POST:
+            password=request.POST.get('password')
+        user_obj=users(name=name,email=email,password=password)
+        user_obj.save()
+        return HttpResponseRedirect('/')
+    return render(request,'pages/dangky.html')
 
 
 def LoadPage_dangnhap(request):
@@ -64,6 +66,8 @@ def LoadPage_dangnhap(request):
             request.session['idUser'] = theUser['idUser']
         return LoadPage_index(request)       
     return render(request,'pages/dangnhap.html')
+
+
 def LoadPage_taikhoan(request):
     return render(request,'pages/taikhoan.html')
 
