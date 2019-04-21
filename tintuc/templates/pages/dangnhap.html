@@ -13,9 +13,14 @@
                           <div class="panel-body">
                             <form method="POST">
                                 {% csrf_token %}
+                                {% if error != 'None' %}
+                                    
+                                <label style="color:red">{{error}}</label>
+                                {% endif %}
                                 <div>
                                     <label>Email</label>
                                     
+                                        
                                       <input type="email" class="form-control" placeholder="Email" name="email">
                                 </div>
                                 <br>	
@@ -23,6 +28,7 @@
                                     <label>Mật khẩu</label>
                                       <input type="password" class="form-control" name="passWord">
                                 </div>
+                                
                                 <br>
                                 <button type="submit" class="btn btn-success">Đăng nhập
                                 </button>

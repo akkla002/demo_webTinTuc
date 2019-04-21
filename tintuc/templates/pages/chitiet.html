@@ -38,16 +38,21 @@
                     <!-- Blog Comments -->
     
                     <!-- Comments Form -->
+                    
+                    {% if request.session.userName != 'NULL' %}
+                        
+                        
                     <div class="well">
                         <h4>Viết bình luận ...<span class="glyphicon glyphicon-pencil"></span></h4>
-                        <form role="form">
+                        <form role="form" method="GET">
                             <div class="form-group">
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea class="form-control" rows="3" name="commentContent"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Gửi</button>
                         </form>
                     </div>
     
+                    {% endif %}
                     <hr>
     
                     <!-- Posted Comments -->

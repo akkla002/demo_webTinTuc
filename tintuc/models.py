@@ -1,6 +1,8 @@
 from django.db import models
-from django.db.models import Count
 import datetime
+
+
+
 # Create your models here.
 class theloai(models.Model):
     objects = models.Manager()
@@ -49,7 +51,7 @@ class Tin(models.Model):
     Created_at=models.DateTimeField(null=True, blank=True)
     Update_at=models.DateTimeField(null=True, blank=True)
 
-
+    
 
 
     def getRelatedNews(self):
@@ -66,9 +68,8 @@ class Tin(models.Model):
     @staticmethod
     def getHotNews():
         hotNewsArr = Tin.objects.order_by('NoiBat').values('idTin','TieuDe', 'Hinh', 'TomTat')[0:4]
-        
         return hotNewsArr
-    
+
     @staticmethod
     def changeImageSource(inputTin, folderString):
         if isinstance(inputTin, Tin):
