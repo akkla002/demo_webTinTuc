@@ -11,6 +11,5 @@ urlpatterns=[
     path('dangky/',views.LoadPage_dangky, name='dangky'),
     path('dangnhap/',views.LoadPage_dangnhap, name='dangnhap'),
     path('taikhoan/',views.LoadPage_taikhoan, name='taikhoan'),
-    path('123/<int:idTin>',views.LoadPage_test, name='debugInfo'),
     path('logout/', views.LoadPage_logout, name='dangxuat')
 ]
