@@ -96,6 +96,8 @@ def LoadPage_logout(request):
     return LoadPage_index(request)
 
 def LoadCommentManagement(request):
+    if request.session['userName'] != 'admin':
+        return LoadPage_index(request)
     if request.method == 'GET':
         if 'listAns' in request.GET:
             print("ok")
