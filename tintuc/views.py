@@ -8,6 +8,8 @@ from .paginationOfLT import *
 
 # Create your views here.
 thePagination = paginationOfLT(0)
+
+# Hàm load page index
 def LoadPage_index(request):
     if 'userName' not in request.session:
         request.session['userName'] = 'NULL'
@@ -40,7 +42,8 @@ def LoadPage_loaitin(request, id, page = 1):
 def LoadPage_chitiet(request, idTinTuc):
     if request.method == "GET":
         if 'commentContent' in request.GET and 'idUser' in request.session:
-            addNewComment(request.session['idUser'],idTinTuc, request.GET['commentContent'])
+            if request.GET['commentContent'] != "":
+                addNewComment(request.session['idUser'],idTinTuc, request.GET['commentContent'])
     Data = loadInfoOfChiTiet(idTinTuc)
     return render(request,'pages/chitiet.html',Data)
 
@@ -64,7 +67,7 @@ def LoadPage_dangky(request):
     data = {'error': error,'success': finish}
     return render(request,'pages/dangky.html', data)
 
-
+# Hàm load page và xử lý đăng nhập
 def LoadPage_dangnhap(request):
     error = 'None'
     # Kiểm tra thông tin đăng nhập có hay ko
@@ -86,9 +89,22 @@ def LoadPage_dangnhap(request):
 def LoadPage_taikhoan(request):
     return render(request,'pages/taikhoan.html')
 
-
+# Hàm đăng xuất
 def LoadPage_logout(request):
     request.session.flush()
     request.session.modified = True
     return LoadPage_index(request)
 
+def LoadCommentManagement(request):
+    if request.method == 'GET':
+        if 'listAns' in request.GET:
+            print("ok")
+            listAns = request.GET.getlist('listAns')
+            print(listAns)
+            processComment(input = listAns)
+        else:
+            print("KO vao duoc")
+        #print('vao day')
+    tempCMs = getListCommentForBrowse()
+    data = {'listCMs': tempCMs}
+    return render(request,'pages/commentManagement.html',data)

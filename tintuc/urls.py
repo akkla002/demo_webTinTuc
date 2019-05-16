@@ -11,5 +11,6 @@ urlpatterns=[
     path('dangky/',views.LoadPage_dangky, name='dangky'),
     path('dangnhap/',views.LoadPage_dangnhap, name='dangnhap'),
     path('taikhoan/',views.LoadPage_taikhoan, name='taikhoan'),
-    path('logout/', views.LoadPage_logout, name='dangxuat')
+    path('logout/', views.LoadPage_logout, name='dangxuat'),
+    path('admin/cmdt', views.LoadCommentManagement, name='cmdt')
 ]

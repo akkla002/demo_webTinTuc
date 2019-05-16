@@ -115,11 +115,19 @@ class comment(models.Model):
     NoiDung=models.CharField(max_length=255)
     Created_at=models.DateTimeField(null=True, blank=True)
     Update_at=models.DateTimeField(null=True, blank=True)
+    show = models.BooleanField(False)
+    allowed = models.BooleanField(False)
 
     def getUserOfComment(self):
         idUser = getattr(self.idUser,'idUser')
         return users.objects.get(idUser=idUser)
-
+    def changeStatus(self,allowed):
+        if allowed == 1:
+            self.show = True
+            self.allowed = True
+        else:
+            self.allowed = False
+        self.save()
 
 class slide(models.Model):
     objects = models.Manager()

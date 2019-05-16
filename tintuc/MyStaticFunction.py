@@ -6,7 +6,7 @@ from tintuc.models import *
 # Đây là module chứa những static function
 
 
-theFolder='images/slide/'
+theFolder='images/tintuc/'
 
 # Lấy dữ liệu để tạo menu Side bên Giao diện
 
@@ -19,7 +19,7 @@ def loadMenuSide():
 def loadTopSlide():
     arrSide=slide.objects.all()
     for sl in arrSide:
-        sl.Hinh=theFolder+sl.Hinh
+        sl.Hinh='images/slide/'+sl.Hinh
     return arrSide
 
 
@@ -50,7 +50,8 @@ def loadInfoOfChiTiet(idTinTuc):
     tin = Tin.getTinWithFolderById(idTin=idTinTuc,folderString=theFolder)
     relatedNews = Tin.changeImageSource(tin.getRelatedNews(),theFolder)
     hotNews = Tin.changeImageSource(tin.getHotNews(), theFolder)
-    cms = tin.comment_set.all().order_by('-Created_at') #comment.objects.filter(idTinTuc=idTinTuc).values('idUser','NoiDung','Created_at')
+    cms = comment.objects.raw('Select * from tintuc_comment where idTintuc_id = ' + str(idTinTuc) + ' and allowed = 1 and show = 1')
+    #cms = tin.comment_set.all().order_by('-Created_at') #comment.objects.filter(idTinTuc=idTinTuc).values('idUser','NoiDung','Created_at')
     if len(cms) == 0:
         return {'TinTrang': tin,'relatedNews': relatedNews,'hotNews': hotNews}
     arrUser = []
@@ -77,8 +78,12 @@ def addNewComment(idUser, idTin, commentContent):
     cm.idUser = users.objects.get(idUser=idUser)
     cm.idTinTuc = Tin.objects.get(idTin=idTin)
     cm.NoiDung = commentContent
+    cm.show = False
+    cm.allowed = True
     cm.Created_at = datetime.datetime.now()
     cm.save()
+    #cm.changeStatus(True)
+    
 def createAccount(email,name,passWord):
     if users.checkAvailableEmail(email) != None:
         return False
@@ -89,3 +94,18 @@ def createAccount(email,name,passWord):
     newUser.Created_at = datetime.datetime.now()
     newUser.save()
     return True
+
+
+def processComment(input):
+    for value in input:
+        nowStr = value.split('_')
+        id = int(nowStr[0])
+        theResult = int(nowStr[1])
+        print("vao day")
+        cm = comment.objects.get(id=id)
+        cm.changeStatus(theResult)
+    return
+
+def getListCommentForBrowse():
+    cms = comment.objects.raw("Select * from tintuc_comment where allowed = 1 and show = 0")[0:10]
+    return cms

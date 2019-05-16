@@ -1,0 +1,28 @@
+{% extends "pages/base.html" %}
+{% load staticfiles %}
+{% block title %} GioiThieu {% endblock %}
+{% block  content %}
+    <form class="col-lg-13" method="GET">
+    {% csrf_token %}   
+    <ol class="list-group-item col-lg-12 col-md-10" style="list-style-type:none">
+        <li class="list-group-item-info  col-lg-12 col-md-12" style="margin-bottom: 10px">
+            <p class="col-lg-1"> ID</p>
+            <p class="col-lg-7"> Nội dung</p>
+            <p class="col-lg-2"> Người comment</p>
+            <p class="col-lg-2">Cho phép/Không cho phép</p>
+        </li>
+        {% for commentDetails in listCMs %}
+            <li class="list-group-item-info  col-lg-12 col-md-12" style="margin-bottom: 10px">
+                <p class="col-lg-1" id="1"> {{commentDetails.id}}</p>
+                <p class="col-lg-7"> {{commentDetails.NoiDung}}</p>
+                 <p class="col-lg-2"> {{commentDetails.idUser.name}}</p>
+                <div class="col-lg-2">
+                    <input type="checkbox" name="listAns" value="{{commentDetails.id}}_1">Co</input>
+                    <input type="checkbox" name="listAns" value="{{commentDetails.id}}_0">Khong</input>
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+    <button class="btn-block" type="submit" style="margin: auto; width: 80px">Xác nhận</button>
+    </form>
+    {% endblock  %}  
