@@ -19,7 +19,7 @@
                                 {% endif %}
                                 <div>
                                     <label>Email</label>
-                                      <input type="email" class="form-control" placeholder="Email" name="email">
+                                      <input type="email" class="form-control" placeholder="Email" name="email" id="userName">
                                       <span style="color:red" id="validateEmail"></span>
                                 </div>
                                 <br>	
@@ -30,9 +30,23 @@
                                 </div>
                                 
                                 <br>
-                                <button type="button" onclick="checkValueInForm()" class="btn btn-success">Đăng nhập</button>
+                                <button type="button" onclick="checkValueInForm()" class="btn btn-success" id="login">Đăng nhập</button>
                             </form>
                             <script>
+                                document.getElementById("userName")
+                                    .addEventListener("keyup", function(event) {
+                                    event.preventDefault();
+                                    if (event.keyCode === 13) {
+                                        document.getElementById("login").click();
+                                    }
+                                });
+                                document.getElementById("pwd")
+                                    .addEventListener("keyup", function(event) {
+                                    event.preventDefault();
+                                    if (event.keyCode === 13) {
+                                        document.getElementById("login").click();
+                                    }
+                                });
                                 function checkValueInForm(){
                                     var mail = document.forms["formLogin"]["email"].value;
                                     if(mail == ""){

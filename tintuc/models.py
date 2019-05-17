@@ -63,7 +63,10 @@ class Tin(models.Model):
 
     @staticmethod
     def getTinWithFolderById(idTin, folderString):
-        tin = Tin.changeImageSource(inputTin = Tin.objects.get(idTin = idTin),folderString=folderString)
+        inputTin = Tin.objects.get(idTin = idTin)
+        inputTin.SoLuotXem += 1
+        inputTin.save()
+        tin = Tin.changeImageSource(inputTin = inputTin,folderString=folderString)
         return tin
     @staticmethod
     def getHotNews():
@@ -126,7 +129,7 @@ class comment(models.Model):
             self.show = True
             self.allowed = True
         else:
-            self.allowed = False
+            self.allowed = self.show = False
         self.save()
 
 class slide(models.Model):

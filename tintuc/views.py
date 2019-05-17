@@ -21,8 +21,9 @@ def LoadPage_index(request):
 
 
 def LoadPage_GioiThieu(request):
+    theSlide = loadTopSlide()
     topFiveNews = Tin.objects.all()[0:5]
-    Data = {'theloai': loadMenuSide(),'TinTuc': topFiveNews}
+    Data = {'theloai': loadMenuSide(), 'Slide': zip(theSlide,range(len(theSlide)))}
     return render(request,'pages/GioiThieu.html',Data)
 
 
@@ -57,10 +58,12 @@ def LoadPage_dangky(request):
             error = 'Faile'
         else:
             email=request.POST['email']
-            if users.checkAvailableEmail(email) != None:
+            if "@" not in email:
+                error = "Email không đúng định dạng"
+            elif users.checkAvailableEmail(email) != None:
                 error = "Tồn tại email này!"
             else:
-                name=request.POST['name']
+                name = request.POST['name']
                 password=request.POST['password']
                 createAccount(email,name,password)
                 finish = 1

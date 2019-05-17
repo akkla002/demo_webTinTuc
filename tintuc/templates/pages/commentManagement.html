@@ -23,6 +23,8 @@
             </li>
         {% endfor %}
     </ol>
-    <button class="btn-block" type="submit" style="margin: auto; width: 80px">Xác nhận</button>
+    <button class="btn-info col-xs-offset-5" type="submit" style="width: 80px; padding: 5px">Xác nhận</button>
+    <a class="btn-info col-xs-offset-0" style="width: 80px;padding: 10px"   href="{% url 'cmdt' %}">Refresh</a>
     </form>
+    
     {% endblock  %}  

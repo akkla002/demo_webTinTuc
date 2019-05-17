@@ -48,6 +48,7 @@ def loadTopNews(page=None):
 
 def loadInfoOfChiTiet(idTinTuc):
     tin = Tin.getTinWithFolderById(idTin=idTinTuc,folderString=theFolder)
+    
     relatedNews = Tin.changeImageSource(tin.getRelatedNews(),theFolder)
     hotNews = Tin.changeImageSource(tin.getHotNews(), theFolder)
     cms = comment.objects.raw('Select * from tintuc_comment where idTintuc_id = ' + str(idTinTuc) + ' and allowed = 1 and show = 1')
@@ -107,5 +108,5 @@ def processComment(input):
     return
 
 def getListCommentForBrowse():
-    cms = comment.objects.raw("Select * from tintuc_comment where allowed = 1 and show = 0")[0:10]
+    cms = comment.objects.raw("Select * from tintuc_comment where allowed < show or show < allowed")[0:10]
     return cms
