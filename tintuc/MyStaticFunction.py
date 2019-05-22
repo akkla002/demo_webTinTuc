@@ -69,7 +69,8 @@ def checkLogin(userName, passWord):
         return None
     name = user.name
     id = user.idUser
-    theUser = {'name': name, 'idUser': id}
+    email  = user.email
+    theUser = {'name': name, 'idUser': id, 'email': email}
     return theUser
 
 # thêm comment vào tin tức

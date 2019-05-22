@@ -46,7 +46,7 @@
                         
                         {% if request.session.userName != 'NULL' %}
                         <li>
-                            <a href="#">{{request.session.userName}}</a>
+                            <a href="{% url 'taikhoan' %}">{{request.session.userName}}</a>
                         </li>
                         <li>
                             <a href="{% url 'dangxuat' %}">Đăng xuất</a>

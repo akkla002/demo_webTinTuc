@@ -86,11 +86,26 @@ def LoadPage_dangnhap(request):
         else:
             request.session['userName'] = theUser['name']
             request.session['idUser'] = theUser['idUser']
+            request.session['email'] = theUser['email']
             return LoadPage_index(request)
     Data = {'error': error}
     return render(request,'pages/dangnhap.html',Data)
 def LoadPage_taikhoan(request):
-    return render(request,'pages/taikhoan.html')
+    notification = -1
+    if request.method == "POST":
+        if 'name' in request.POST:
+            name =  request.POST['name']
+        if 'password' in request.POST:
+            password = request.POST['password']
+        user = users.updateUser(request.session['email'],name,password)
+        if user != None:
+            print(user)
+            request.session['userName'] = user.name
+            notification = 1
+        else:
+            notification = 0
+    data = {'notif': notification}
+    return render(request,'pages/taikhoan.html', data)
 
 # Hàm đăng xuất
 def LoadPage_logout(request):

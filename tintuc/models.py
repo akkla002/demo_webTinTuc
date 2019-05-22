@@ -106,6 +106,19 @@ class users(models.Model):
         if ur.count() > 0:
             return ur[0]
         return None
+    @staticmethod
+    def updateUser(theEmail, newName, newPass):
+        urs = users.objects.filter(email = theEmail)
+        if urs.count() > 0:
+            ur = urs[0]
+            if newName != "":
+                ur.name = newName
+            if newPass != "":
+                ur.password = newPass
+            ur.save()
+            return ur
+        return None
+        
 
         
         
