@@ -128,3 +128,14 @@ def LoadCommentManagement(request):
     tempCMs = getListCommentForBrowse()
     data = {'listCMs': tempCMs}
     return render(request,'pages/commentManagement.html',data)
+
+
+def LoadPage_timkiem(request):
+    listTin = None
+    if request.method == 'GET':
+        if 'key' in request.GET:
+            if request.GET['key'] != "":
+                key = request.GET['key']
+                listTin = Tin.searchContentByKeyWord(key)
+    data = {'theloai': loadMenuSide(), 'TopNews': listTin}
+    return render(request,'pages/search.html',data)

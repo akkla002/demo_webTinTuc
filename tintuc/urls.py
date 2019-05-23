@@ -12,5 +12,6 @@ urlpatterns=[
     path('dangnhap/',views.LoadPage_dangnhap, name='dangnhap'),
     path('taikhoan/',views.LoadPage_taikhoan, name='taikhoan'),
     path('logout/', views.LoadPage_logout, name='dangxuat'),
+    path('timkiem/', views.LoadPage_timkiem, name='timkiem'),
     path('admin/cmdt', views.LoadCommentManagement, name='cmdt')
 ]

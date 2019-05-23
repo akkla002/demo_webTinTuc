@@ -68,6 +68,7 @@ class Tin(models.Model):
         inputTin.save()
         tin = Tin.changeImageSource(inputTin = inputTin,folderString=folderString)
         return tin
+    
     @staticmethod
     def getHotNews():
         hotNewsArr = Tin.objects.order_by('NoiBat').values('idTin','TieuDe', 'Hinh', 'TomTat')[0:4]
@@ -81,7 +82,13 @@ class Tin(models.Model):
             for eachNew in inputTin:
                 eachNew['Hinh'] = folderString + eachNew['Hinh']
         return inputTin
-
+    
+    @staticmethod
+    def searchContentByKeyWord(inputKey):
+        listTin = Tin.objects.raw('Select * from TinTuc_tin where tieude like "%' + inputKey +'%"')
+        for x in listTin:
+            x.Hinh = 'images/tintuc/' + x.Hinh
+        return listTin
 class users(models.Model):
     objects = models.Manager()
     idUser = models.IntegerField(primary_key=True)

@@ -4,36 +4,7 @@
 {% block  content %}
 <!-- Page Content -->
 <div class="container">
-        <!-- slider -->
     <div class="row carousel-holder">
-        <div class="col-md-12">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        {% for slidePic, count in Slide %}
-                            {% if count == 0 %}
-                                <div class="item active">
-                            {% else %}
-                                <div class="item">
-                            {% endif %}
-                                <img class="slide-image" src="{% static slidePic.Hinh %}" alt="">
-                                </div>
-                        {% endfor %}
-                    </div>
-                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- end slide -->
 
         <div class="space20"></div>
         <div class="row main-left">
@@ -68,12 +39,13 @@
                     <div class="panel-body">
                         <!-- item -->
                         
-                        {% for eachNew, eachLT in Top5New %}
+                        {% if TopNews %}
+                            
+                            
+                            
+                        {% for eachNew in TopNews %}
                             
                         <div class="row-item row">
-                                <h3>
-                                    <a href="#">{{eachLT.Ten}}</a>
-                                </h3>
                                 <div class="col-md-12 border-right">
                                     <div class="col-md-3">
                                         <a href="{% url 'chitiet' eachNew.idTin %}">
@@ -123,6 +95,12 @@
 
                             <div class="break"></div>
                         </div> -->
+                        
+                        {% else %}
+
+                        Không có nội dung cần tìm
+
+                        {% endif %}
                 
 
                     </div>
